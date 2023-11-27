@@ -32,4 +32,16 @@ class Lotto {
         lotto.sort()
         return lotto
     }
+
+    public fun HalfAuto(): MutableList<Int> {
+        val lotto = mutableListOf<Int>()
+        print("1~45의 숫자 1~6개 입력 : ")
+        val input: String = readLine().toString()
+        val arr = input.split(" ").filter{ it.isNotBlank() && it.matches(Regex("-?\\d+")) }
+
+        arr.map{ it.toInt() }.forEach{
+
+        }
+    }
+
 }
