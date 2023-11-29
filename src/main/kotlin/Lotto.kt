@@ -58,5 +58,15 @@ class Lotto {
         lotto.sort()
         return lotto
     }
+    public fun printLotto(lotto: MutableList<Int>) {
+        println("<======================>")
+        print(" ")
+        for(element in lotto){
+            print("${element}  ")
+        }
+        println()
+        println("<======================>")
+    }
+
 
 }
