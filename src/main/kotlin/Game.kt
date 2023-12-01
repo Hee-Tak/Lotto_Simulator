@@ -59,7 +59,60 @@ class Game{
     }
 
     fun checkResult(){
-        val result = Lotto.
+        val result = Lotto().winningNumbers()
+        println("\t\t<당첨번호>")
+        Lotto().printLotto(result.first)
+        println("보너스 번호 : ${result.second}")
+
+        println("\t\t<결과>")
+        checkLotto(sheet, result)
+
+        sheet.clear()   //이번회차 확인했으니 비우고 다음회차로.
+    }
+
+    private fun checkLotto(sheet: MutableList<MutableList<Int>>, prize: Pair<MutableList<Int>, Int>) {
+        val result = prize.first
+        val bonus = prize.second
+
+        var num = 1
+
+        for(list in sheet){
+            var count = 1
+            print("${num++}번) ")
+            for(element in list){
+                print("$element ")
+                if(element in result){
+                    count++
+                }
+            }
+            //println("\t\t${count}개 일치")
+            if(count == 6){
+                val prizeMoney =1952160000
+                println("\t\t\t\t1등\t+${prizeMoney}")
+                money += prizeMoney
+            } else if(count == 5){
+                if(bonus in list){
+                    val prizeMoney = 54226666
+                    println("\t\t\t\t2등\t+${prizeMoney}")
+                    money += prizeMoney
+                } else {
+                    val prizeMoney = 1427017
+                    println("\t\t\t\t3등\t+${prizeMoney}")
+                    money += prizeMoney
+                }
+            } else if(count == 4){
+                val prizeMoney = 50000
+                println("\t\t\t\t4등\t+${prizeMoney}")
+                money += prizeMoney
+            } else if(count == 3){
+                val prizeMoney = 5000
+                println("\t\t\t\t5등\t+${prizeMoney}")
+                money += prizeMoney
+            } else {
+                println("\t\t\t\t꽝")
+            }
+
+        }
     }
 
     fun exit(){

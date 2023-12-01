@@ -1,7 +1,7 @@
 import java.util.*
 
 class Lotto {
-    private fun AutoLotto(): MutableList<Int> {
+    fun AutoLotto(): MutableList<Int> {
         val lotto = mutableListOf<Int>()
 
         while(lotto.size < 6){
@@ -13,7 +13,7 @@ class Lotto {
         return lotto
     }
 
-    private fun ManualLotto(): MutableList<Int> {
+    fun ManualLotto(): MutableList<Int> {
         var lotto = mutableListOf<Int>()
 
         while(lotto.size < 6){
@@ -33,7 +33,7 @@ class Lotto {
         return lotto
     }
 
-    private fun HalfAuto(): MutableList<Int> {
+    fun HalfAuto(): MutableList<Int> {
         val lotto = mutableListOf<Int>()
         print("1~45의 숫자 1~6개 입력 : ")
         val input: String = readLine().toString()
@@ -68,7 +68,7 @@ class Lotto {
         println("<======================>")
     }
 
-    private fun winningNumbers(): Pair<MutableList<Int>, Int> { //당첨번호 6개 + 보너스 1개
+    fun winningNumbers(): Pair<MutableList<Int>, Int> { //당첨번호 6개 + 보너스 1개
         val lotto = mutableListOf<Int>()
 
         while(lotto.size < 6){
