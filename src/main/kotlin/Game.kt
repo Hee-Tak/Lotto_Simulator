@@ -15,7 +15,7 @@ class Game{
             val choose = readLine().toString().trim().toInt()
             when(choose){
                 1 -> {
-                    checkSheets()
+                    checkSheets()       //현재 sheet 확인(보여주기)
                 }
 
                 2 -> {
@@ -59,7 +59,7 @@ class Game{
     }
 
     fun checkResult(){
-
+        val result = Lotto.
     }
 
     fun exit(){

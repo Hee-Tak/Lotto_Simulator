@@ -1,7 +1,7 @@
 import java.util.*
 
 class Lotto {
-    public fun AutoLotto(): MutableList<Int> {
+    private fun AutoLotto(): MutableList<Int> {
         val lotto = mutableListOf<Int>()
 
         while(lotto.size < 6){
@@ -13,7 +13,7 @@ class Lotto {
         return lotto
     }
 
-    public fun ManualLotto(): MutableList<Int> {
+    private fun ManualLotto(): MutableList<Int> {
         var lotto = mutableListOf<Int>()
 
         while(lotto.size < 6){
@@ -33,7 +33,7 @@ class Lotto {
         return lotto
     }
 
-    public fun HalfAuto(): MutableList<Int> {
+    private fun HalfAuto(): MutableList<Int> {
         val lotto = mutableListOf<Int>()
         print("1~45의 숫자 1~6개 입력 : ")
         val input: String = readLine().toString()
@@ -58,7 +58,7 @@ class Lotto {
         lotto.sort()
         return lotto
     }
-    public fun printLotto(lotto: MutableList<Int>) {
+    fun printLotto(lotto: MutableList<Int>) {
         println("<======================>")
         print(" ")
         for(element in lotto){
@@ -66,6 +66,30 @@ class Lotto {
         }
         println()
         println("<======================>")
+    }
+
+    private fun winningNumbers(): Pair<MutableList<Int>, Int> { //당첨번호 6개 + 보너스 1개
+        val lotto = mutableListOf<Int>()
+
+        while(lotto.size < 6){
+            val random = Random().nextInt(45) + 1
+
+            if(!lotto.contains(random)){
+                lotto.add(random)
+            }
+        }
+
+        var bonus: Int
+        while(true){
+            val temp = Random().nextInt(45) + 1
+            if(!lotto.contains(temp)){
+                bonus = temp
+                break
+            }
+        }
+
+        lotto.sort()
+        return Pair(lotto, bonus)
     }
 
 
