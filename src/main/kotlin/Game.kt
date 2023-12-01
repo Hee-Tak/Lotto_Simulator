@@ -40,7 +40,18 @@ class Game{
 
 
     fun checkSheets(){
-
+        if(sheet.isEmpty())
+            println("비어있습니다.")
+        else{
+            var count = 1
+            for(list in sheet){
+                print("${count++}번) ")
+                for(element in list){
+                    print("$element ")
+                }
+                println()
+            }
+        }
     }
 
     fun purchaseLotto(){
