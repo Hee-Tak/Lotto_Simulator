@@ -121,12 +121,15 @@ class Game{
 
     //==================4번 : 종료 =================
     fun exit(){
-
+        return return
     }
 
     //==================5번 : 무료 충전 =================
     fun freeCharge(){
+        val charge: Int = 5000
+        money += charge
 
+        println("${charge}원 무료 충전")
     }
 
     //==================6번 : DB 다루기 =================
