@@ -63,6 +63,11 @@ class Game{
         var user: MutableList<Int>
         var choose: Int
 
+        if(money < 1000){
+            println("잔액이 부족하여 구매할 수 없습니다.")
+            return
+        }
+
         while(true){
             println("[1:자동 \t 2:수동 \t 3:반자동]")
             print("=> ")
@@ -108,6 +113,10 @@ class Game{
             print("매수를 입력하세요.(장당 1,000) => ")
             try{
                 num = readLine().toString().trim().toInt()
+                if(num <= 0){
+                    println("잘못된 입력입니다. 0 과 음수는 입력할 수 없습니다.")
+                    continue
+                }
                 if(num*1000 <= money){
                     money -= num*1000
                     println("${num}장 출력됩니다.")
