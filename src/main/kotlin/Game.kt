@@ -30,7 +30,8 @@ class Game{
                     }
 
                     4 -> {
-                        exit()
+                        //exit()
+                        return
                     }
 
                     5 -> {
@@ -228,9 +229,9 @@ class Game{
 
 
     //==================4번 : 종료 =================
-    fun exit(){
-        return return
-    }
+    //fun exit(){
+    //
+    //}
 
     //==================5번 : 무료 충전 =================
     fun freeCharge(){
