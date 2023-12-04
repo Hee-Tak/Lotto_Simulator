@@ -1,3 +1,4 @@
+import java.lang.NumberFormatException
 import java.text.NumberFormat
 import java.util.Locale
 
@@ -57,6 +58,79 @@ class Game{
 
     //==================2번 : 로또 구매 =================
     fun purchaseLotto(){
+        val lotto = Lotto()
+        var user: MutableList<Int>
+        var choose: Int
+
+        while(true){
+            println("[1:자동 \t 2:수동 \t 3:반자동]")
+            print("=> ")
+            val temp_choose = readLine().toString().trim()
+            try {
+                choose = temp_choose.toInt()
+                break
+            } catch (e: NumberFormatException) {
+                println("올바른 형식으로 숫자 하나를 입력하세요. (1, 2, 3)")
+            }
+        }
+
+        while(true){
+            when(choose){
+                1 -> {
+                    println("<자동>")
+                    break
+                }
+
+
+                2 -> {
+                    println("<수동>")
+                    break
+                }
+
+
+                3 -> {
+                    println("<반자동>")
+                    break
+                }
+
+                else -> {
+                    choose = (1..3).random()
+                }
+
+            }
+        }
+        //자동 / 수동 / 반자동 선택
+        //=====================================================
+        print("매수를 입력하세요.(장당 1000) => ")
+        var num: Int
+        while(true){
+            try{
+                num = readLine().toString().trim().toInt()
+                if(num*1000 <= money){
+                    money -= num*1000
+                    println("${num}장 출력됩니다.")
+                    when(choose){
+                        1 -> {
+                            for(i in 1..num){
+                                user = lotto.AutoLotto()
+                                sheet.add(user)
+                                lotto.printLotto(user)
+                            }
+                        }
+                        2 -> {
+
+                        }
+                        3 -> {
+
+                        }
+                    }
+                }
+            }
+        }
+
+
+
+
 
     }
 
