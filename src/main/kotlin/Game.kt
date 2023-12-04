@@ -10,9 +10,9 @@ class Game{
 
         while(true) {
             printMoney()
-            println("===================================================================================")
-            println(" [1:보유중인Sheets확인\t2:로또구매\t3:당첨번호확인\t4:종료\t5:무료충전\t6:DB다루기]")
-            println("===================================================================================")
+            println("================================================================================================")
+            println(" [1:보유중인Sheets확인\t2:로또구매\t3:당첨번호확인\t4:종료\t5:무료충전\t6:DB다루기\t7:무료자동10장]")
+            println("================================================================================================")
             print("=> ")
             try {
                 val choose = readLine().toString().trim().toInt()
@@ -40,6 +40,10 @@ class Game{
 
                     6 -> {
                         DB()
+                    }
+
+                    7 -> {
+                        macro()
                     }
                 }
             } catch (e: NumberFormatException){
@@ -235,7 +239,7 @@ class Game{
 
     //==================5번 : 무료 충전 =================
     fun freeCharge(){
-        val charge = 5000
+        val charge = 10000
         money += charge
 
         val temp = NumberFormat.getNumberInstance(Locale.US).format(charge)
@@ -252,6 +256,19 @@ class Game{
     private fun printMoney(){
         val temp = NumberFormat.getNumberInstance(Locale.US).format(money)
         println("현재 지니고 있는 금액 : ${temp} 원")
+    }
+
+    //===============================================
+    private fun macro(){
+        if(money >= 10000){
+            money -= 10000
+            for(i in 1..10){
+                sheet.add(Lotto().AutoLotto())
+            }
+            freeCharge()
+        } else {
+            println("잔액 부족")
+        }
     }
 
 }
