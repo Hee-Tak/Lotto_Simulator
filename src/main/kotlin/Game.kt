@@ -8,34 +8,44 @@ class Game{
     
     fun oneGame() {
 
-        while(true){
+        while(true) {
+            println()
+            println()
+            println()
             printMoney()
             println("===================================================================================")
             println(" [1:보유중인Sheets확인\t2:로또구매\t3:당첨번호확인\t4:종료\t5:무료충전\t6:DB다루기]")
             println("===================================================================================")
             print("=> ")
-            val choose = readLine().toString().trim().toInt()
-            when(choose){
-                1 -> {
-                    checkSheets()       //현재 sheet 확인(보여주기)
-                }
+            try {
+                val choose = readLine().toString().trim().toInt()
+                when (choose) {
+                    1 -> {
+                        checkSheets()       //현재 sheet 확인(보여주기)
+                    }
 
-                2 -> {
-                    purchaseLotto()
-                }
+                    2 -> {
+                        purchaseLotto()
+                    }
 
-                3 -> {
-                    checkResult()
+                    3 -> {
+                        checkResult()
+                    }
+
+                    4 -> {
+                        exit()
+                    }
+
+                    5 -> {
+                        freeCharge()
+                    }
+
+                    6 -> {
+                        DB()
+                    }
                 }
-                4 -> {
-                    exit()
-                }
-                5 -> {
-                    freeCharge()
-                }
-                6 -> {
-                    DB()
-                }
+            } catch (e: NumberFormatException){
+                println("잘못된 입력입니다.")
             }
         }
     }
