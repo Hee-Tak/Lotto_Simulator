@@ -22,7 +22,7 @@ class Lotto {
             val arr = input.split(" ").filter{ it.isNotBlank() && it.matches(Regex("-?\\d+")) }
 
             arr.map{ it.toInt() }.forEach{
-                if(it in 1..45 && it !in lotto && lotto.size < 6)
+                if(it in 1..45 && it !in lotto &&lotto.size < 6)
                     lotto.add(it)
                 if(lotto.size >= 6)
                     return@forEach
