@@ -118,13 +118,27 @@ class Game{
                             }
                         }
                         2 -> {
-
+                            for(i in 1..num){
+                                user = lotto.ManualLotto()
+                                sheet.add(user)
+                                lotto.printLotto(user)
+                            }
                         }
                         3 -> {
-
+                            for(i in 1..num){
+                                user = lotto.HalfAuto()
+                                sheet.add(user)
+                                lotto.printLotto(user)
+                            }
                         }
                     }
+                } else {
+                    val d = num*1000 - money
+                    val temp = NumberFormat.getNumberInstance(Locale.US).format(d)
+                    println("잔액이 부족합니다. 부족한 금액 : ${temp}")
                 }
+            } catch (e: NumberFormatException){
+                println("올바른 형식으로 숫자 하나를 입력하세요. (1, 2, 3)")
             }
         }
 
