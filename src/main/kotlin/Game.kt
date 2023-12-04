@@ -9,9 +9,10 @@ class Game{
     fun oneGame() {
 
         while(true){
-            println("================================================================================================================")
+            printMoney()
+            println("===================================================================================")
             println(" [1:보유중인Sheets확인\t2:로또구매\t3:당첨번호확인\t4:종료\t5:무료충전\t6:DB다루기]")
-            println("================================================================================================================")
+            println("===================================================================================")
             print("=> ")
             val choose = readLine().toString().trim().toInt()
             when(choose){
@@ -99,11 +100,12 @@ class Game{
 
             }
         }
-        //자동 / 수동 / 반자동 선택
-        //=====================================================
-        print("매수를 입력하세요.(장당 1000) => ")
+                //자동 / 수동 / 반자동 선택
+                //=====================================================
+
         var num: Int
         while(true){
+            print("매수를 입력하세요.(장당 1,000) => ")
             try{
                 num = readLine().toString().trim().toInt()
                 if(num*1000 <= money){
@@ -116,6 +118,7 @@ class Game{
                                 sheet.add(user)
                                 lotto.printLotto(user)
                             }
+                            break
                         }
                         2 -> {
                             for(i in 1..num){
@@ -123,6 +126,7 @@ class Game{
                                 sheet.add(user)
                                 lotto.printLotto(user)
                             }
+                            break
                         }
                         3 -> {
                             for(i in 1..num){
@@ -130,18 +134,18 @@ class Game{
                                 sheet.add(user)
                                 lotto.printLotto(user)
                             }
+                            break
                         }
                     }
                 } else {
                     val d = num*1000 - money
                     val temp = NumberFormat.getNumberInstance(Locale.US).format(d)
-                    println("잔액이 부족합니다. 부족한 금액 : ${temp}")
+                    println("잔액이 부족합니다. 부족한 금액 : ${temp}원")
                 }
             } catch (e: NumberFormatException){
                 println("올바른 형식으로 숫자 하나를 입력하세요. (1, 2, 3)")
             }
         }
-
 
 
 
@@ -176,7 +180,7 @@ class Game{
                     count++
                 }
             }
-            //println("\t\t${count}개 일치")
+
             if(count == 6){
                 val prizeMoney =1952160000
                 println("\t\t\t\t1등\t+${prizeMoney}")
@@ -223,6 +227,12 @@ class Game{
     //==================6번 : DB 다루기 =================
     fun DB(){
 
+    }
+
+    //================================================
+    private fun printMoney(){
+        val temp = NumberFormat.getNumberInstance(Locale.US).format(money)
+        println("현재 지니고 있는 금액 : ${temp} 원")
     }
 
 }
