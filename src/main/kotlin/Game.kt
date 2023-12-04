@@ -235,10 +235,12 @@ class Game{
 
     //==================5번 : 무료 충전 =================
     fun freeCharge(){
-        val charge: Int = 5000
+        val charge = 5000
         money += charge
 
-        println("${charge}원 무료 충전")
+        val temp = NumberFormat.getNumberInstance(Locale.US).format(charge)
+
+        println("${temp}원 무료 충전")
     }
 
     //==================6번 : DB 다루기 =================
