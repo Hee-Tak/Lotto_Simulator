@@ -9,9 +9,6 @@ class Game{
     fun oneGame() {
 
         while(true) {
-            println()
-            println()
-            println()
             printMoney()
             println("===================================================================================")
             println(" [1:보유중인Sheets확인\t2:로또구매\t3:당첨번호확인\t4:종료\t5:무료충전\t6:DB다루기]")
@@ -45,7 +42,7 @@ class Game{
                     }
                 }
             } catch (e: NumberFormatException){
-                println("잘못된 입력입니다.")
+
             }
         }
     }
