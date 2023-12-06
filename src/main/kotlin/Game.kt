@@ -46,8 +46,7 @@ class Game{
                     }
 
                     4 -> {
-                        //exit()
-                        return
+                        break
                     }
 
                     5 -> {
@@ -66,6 +65,10 @@ class Game{
 
             }
         }
+
+        //연결 닫기
+        connection.close()
+
     }
 
 
