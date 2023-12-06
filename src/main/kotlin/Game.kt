@@ -1,12 +1,28 @@
 import java.lang.NumberFormatException
+import java.sql.Connection
+import java.sql.DriverManager
 import java.text.NumberFormat
 import java.util.Locale
+import java.sql.PreparedStatement
+import java.sql.ResultSet
+
 
 class Game{
     var money: Int = 10000 //초기 자금
     val sheet: MutableList<MutableList<Int>> = mutableListOf()
+
+    //JDBC 연결 정보
+    val jdbcURL = "jdbc:mysql://localhost:3306/mysql"
+    val user = "hitak" //or root(!= hitak)
+    val password = "0000"
+    lateinit var connection: Connection
     
     fun oneGame() {
+
+        //JDBC 드라이버 로드
+        Class.forName("com.mysql.cj.jdbc.Driver")
+        //데이터베이스 연결
+        connection = DriverManager.getConnection(jdbcURL, user, password)
 
         while(true) {
             printMoney()
