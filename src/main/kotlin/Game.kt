@@ -25,6 +25,7 @@ class Game{
         connection = DriverManager.getConnection(jdbcURL, user, password)
 
         while(true) {
+
             printMoney()
             println("================================================================================================")
             println(" [1:보유중인Sheets확인\t2:로또구매\t3:당첨번호확인\t4:종료\t5:무료충전\t6:DB다루기\t7:무료자동10장]")
@@ -296,5 +297,6 @@ class Game{
             println("잔액 부족")
         }
     }
+
 
 }
