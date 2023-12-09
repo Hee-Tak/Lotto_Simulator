@@ -151,6 +151,7 @@ class Game{
                 }
                 if(num*1000 <= money){
                     money -= num*1000
+                    insertMoney(connection, money)
                     println("${num}장 출력됩니다.")
                     when(choose){
                         1 -> {
@@ -226,24 +227,29 @@ class Game{
                 val prizeMoney =1952160000
                 println("\t\t\t\t1등\t+${prizeMoney}")
                 money += prizeMoney
+                insertMoney(connection, money)
             } else if(count == 5){
                 if(bonus in list){
                     val prizeMoney = 54226666
                     println("\t\t\t\t2등\t+${prizeMoney}")
                     money += prizeMoney
+                    insertMoney(connection, money)
                 } else {
                     val prizeMoney = 1427017
                     println("\t\t\t\t3등\t+${prizeMoney}")
                     money += prizeMoney
+                    insertMoney(connection, money)
                 }
             } else if(count == 4){
                 val prizeMoney = 50000
                 println("\t\t\t\t4등\t+${prizeMoney}")
                 money += prizeMoney
+                insertMoney(connection, money)
             } else if(count == 3){
                 val prizeMoney = 5000
                 println("\t\t\t\t5등\t+${prizeMoney}")
                 money += prizeMoney
+                insertMoney(connection, money)
             } else {
                 println("\t\t\t\t꽝")
             }
@@ -261,6 +267,7 @@ class Game{
     fun freeCharge(){
         val charge = 10000
         money += charge
+        insertMoney(connection, money)
 
         val temp = NumberFormat.getNumberInstance(Locale.US).format(charge)
 
@@ -270,7 +277,6 @@ class Game{
     //==================6번 : DB 다루기 =================
     fun DB(){
         DBtest().JDBC_TEST(money)
-
 
         // 테이블 구상
         // 플레이어 | 가진돈 | 수익 | 지출 | 무료충전횟수 | 플레이회차(로또회차) | 구매게임수 | 1등당첨횟수 | 2등당첨횟수 | 3등당첨횟수 | 4등당첨횟수 | 5등당첨횟수 | 꽝
@@ -289,6 +295,7 @@ class Game{
     private fun macro(){
         if(money >= 10000){
             money -= 10000
+            insertMoney(connection, money)
             for(i in 1..10){
                 sheet.add(Lotto().AutoLotto())
             }
@@ -299,4 +306,17 @@ class Game{
     }
 
 
+
+
+
+    private fun insertMoney(connection: Connection, money: Int) {
+        val insertQuery = "INSERT INTO Lotto (money) VALUES (?)"
+
+        //PreparedStatement 사용하여 SQL 쿼리 실행
+        val preparedStatement: PreparedStatement = connection.prepareStatement(insertQuery)
+        preparedStatement.setInt(1, money)
+        preparedStatement.executeUpdate()
+
+        println("Data inserted successfully.")
+    }
 }
