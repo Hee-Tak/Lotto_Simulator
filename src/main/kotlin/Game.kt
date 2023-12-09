@@ -319,4 +319,16 @@ class Game{
 
         println("Data inserted successfully.")
     }
+
+    private fun increaseRank(connection: Connection, rank: Int){
+
+    }
+
+    private fun increaseGame(connection: Connection){
+
+    }
+
+    private fun increaseWeek(connection: Connection){
+
+    }
 }
