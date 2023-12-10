@@ -8,14 +8,16 @@ import java.sql.ResultSet
 
 
 class Game{
-    var money: Int = 10000 //초기 자금
-    val sheet: MutableList<MutableList<Int>> = mutableListOf()
 
     //JDBC 연결 정보
     val jdbcURL = "jdbc:mysql://localhost:3306/mysql"
     val user = "hitak" //or root(!= hitak)
     val password = "0000"
     lateinit var connection: Connection
+
+    //로또 게임 핵심자원 : 돈 / 게임 sheet
+    var money: Int = queryMoney(connection)
+    val sheet: MutableList<MutableList<Int>> = mutableListOf()
     
     fun oneGame() {
 
@@ -330,5 +332,28 @@ class Game{
 
     private fun increaseWeek(connection: Connection){
 
+    }
+
+
+
+
+    private fun queryMoney(connection: Connection): Int {
+        val selectQuery = "SELECT money FROM Player"
+
+        // PreparedStatement 사용하여 SQL 쿼리 실행
+        val preparedStatement: PreparedStatement = connection.prepareStatement(selectQuery)
+        val resultSet : ResultSet = preparedStatement.executeQuery()
+
+        var money = 0
+        // 결과 출력
+        while(resultSet.next()){
+            money = resultSet.getInt("money")
+            println("Money: $money")
+        }
+
+        resultSet.close()
+        preparedStatement.close()
+
+        return money
     }
 }

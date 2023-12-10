@@ -45,7 +45,7 @@ class DBtest{
         val createTableQuery = """
         CREATE TABLE $tableName (
             player_id INT AUTO_INCREMENT PRIMARY KEY,
-            money INT,
+            money INT DEFAULT 10000,
             profit INT,
             expenditure INT,
             free_recharge_count INT,
