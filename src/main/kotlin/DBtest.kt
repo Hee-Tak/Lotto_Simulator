@@ -23,7 +23,7 @@ class DBtest{
         insertData(connection, money)
 
         //데이터베이스에서 데이터 조회
-        queryData(connection)
+        queryPlayerData(connection)
 
         //연결 닫기
         connection.close()
