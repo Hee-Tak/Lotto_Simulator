@@ -19,7 +19,7 @@ class Game{
     
     fun oneGame() {
 
-        //JDBC 드라이버 로드
+        //JDBC 드라이버 로드 Class.forNmae("드라이버_클래스_이름")
         Class.forName("com.mysql.cj.jdbc.Driver")
         //데이터베이스 연결
         connection = DriverManager.getConnection(jdbcURL, user, password)

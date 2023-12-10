@@ -32,6 +32,49 @@ class DBtest{
 
 
 
+    private fun createPlayerTableIfNotExists(connection: Connection) {
+        val tableName = "Player"
+
+        // 이미 존재하는지 확인
+        if (isTableExists(connection, tableName)) {
+            println("$tableName 테이블이 이미 존재합니다.")
+            return
+        }
+
+        // 테이블 생성
+        val createTableQuery = """
+        CREATE TABLE $tableName (
+            player_id INT AUTO_INCREMENT PRIMARY KEY,
+            money INT,
+            profit INT,
+            expenditure INT,
+            free_recharge_count INT,
+            play_round INT,
+            game_purchase_count INT,
+            first_prize_count INT,
+            second_prize_count INT,
+            third_prize_count INT,
+            fourth_prize_count INT,
+            fifth_prize_count INT,
+            losing_count INT
+        );
+    """.trimIndent()
+
+        // PreparedStatement 사용하여 SQL 쿼리 실행
+        val createTableStatement: PreparedStatement = connection.prepareStatement(createTableQuery)
+        createTableStatement.executeUpdate()
+
+        println("$tableName 테이블이 생성되었습니다.")
+    }
+
+    private fun isTableExists(connection: Connection, tableName: String): Boolean {
+        val checkTableQuery = "SHOW TABLES LIKE ?"
+        val checkTableStatement: PreparedStatement = connection.prepareStatement(checkTableQuery)
+        checkTableStatement.setString(1, tableName)
+        val resultSet = checkTableStatement.executeQuery()
+
+        return resultSet.next()
+    }
 
 
     private fun insertData(connection: Connection, money: Int) {
