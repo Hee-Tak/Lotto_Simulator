@@ -89,19 +89,37 @@ class DBtest{
     }
 
 
-    private fun queryData(connection: Connection) {
-        val selectQuery = "SELECT * FROM Lotto"
+    private fun queryPlayerData(connection: Connection) {
+        val selectQuery = "SELECT * FROM Player"
 
-        //PreparedStatement 사용하여 SQL 쿼리 실행
+        // PreparedStatement 사용하여 SQL 쿼리 실행
         val preparedStatement: PreparedStatement = connection.prepareStatement(selectQuery)
-        val resultSet : ResultSet = preparedStatement.executeQuery()
+        val resultSet: ResultSet = preparedStatement.executeQuery()
 
-        //결과 출력
-        while(resultSet.next()){
-            val id = resultSet.getInt("id")
+        // 결과 출력
+        while (resultSet.next()) {
+            val playerId = resultSet.getInt("player_id")
             val money = resultSet.getInt("money")
+            val profit = resultSet.getInt("profit")
+            val expenditure = resultSet.getInt("expenditure")
+            val freeRechargeCount = resultSet.getInt("free_recharge_count")
+            val playRound = resultSet.getInt("play_round")
+            val gamePurchaseCount = resultSet.getInt("game_purchase_count")
+            val firstPrizeCount = resultSet.getInt("first_prize_count")
+            val secondPrizeCount = resultSet.getInt("second_prize_count")
+            val thirdPrizeCount = resultSet.getInt("third_prize_count")
+            val fourthPrizeCount = resultSet.getInt("fourth_prize_count")
+            val fifthPrizeCount = resultSet.getInt("fifth_prize_count")
+            val losingCount = resultSet.getInt("losing_count")
 
-            println("ID: $id, Money: $money")
+            println(
+                "Player ID: $playerId, Money: $money, Profit: $profit, Expenditure: $expenditure, " +
+                        "Free Recharge Count: $freeRechargeCount, Play Round: $playRound, " +
+                        "Game Purchase Count: $gamePurchaseCount, First Prize Count: $firstPrizeCount, " +
+                        "Second Prize Count: $secondPrizeCount, Third Prize Count: $thirdPrizeCount, " +
+                        "Fourth Prize Count: $fourthPrizeCount, Fifth Prize Count: $fifthPrizeCount, " +
+                        "Losing Count: $losingCount"
+            )
         }
 
         resultSet.close()
