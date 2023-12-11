@@ -315,7 +315,7 @@ class Game{
 
 
     private fun insertMoney(connection: Connection, money: Int) {
-        val insertQuery = "INSERT INTO Lotto (money) VALUES (?)"
+        val insertQuery = "INSERT INTO Player (money) VALUES (?)"
 
         //PreparedStatement 사용하여 SQL 쿼리 실행
         val preparedStatement: PreparedStatement = connection.prepareStatement(insertQuery)
