@@ -16,7 +16,7 @@ class Game{
     lateinit var connection: Connection
 
     //로또 게임 핵심자원 : 돈 / 게임 sheet
-    var money: Int = queryMoney(connection)
+    var money: Int = 0
     val sheet: MutableList<MutableList<Int>> = mutableListOf()
     
     fun oneGame() {
@@ -25,6 +25,9 @@ class Game{
         Class.forName("com.mysql.cj.jdbc.Driver")
         //데이터베이스 연결
         connection = DriverManager.getConnection(jdbcURL, user, password)
+        DBtest().Table(connection)
+
+        money = queryMoney(connection)
 
         while(true) {
 

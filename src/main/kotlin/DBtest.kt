@@ -29,6 +29,9 @@ class DBtest{
         connection.close()
 
     }
+    fun Table(connection: Connection){
+        createPlayerTableIfNotExists(connection)
+    }
 
 
 
