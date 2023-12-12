@@ -33,6 +33,10 @@ class DBtest{
         createPlayerTableIfNotExists(connection)
     }
 
+    fun viewTable(connection: Connection){
+        queryPlayerData(connection)
+    }
+
 
 
     private fun createPlayerTableIfNotExists(connection: Connection) {

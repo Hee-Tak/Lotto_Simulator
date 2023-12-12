@@ -272,8 +272,8 @@ class Game{
     fun freeCharge(){
         val charge = 10000
         money += charge
-        insertMoney(connection, money)
-
+        //insertMoney(connection, money)
+        updateMoney(connection, money)
         val temp = NumberFormat.getNumberInstance(Locale.US).format(charge)
 
         println("${temp}원 무료 충전")
@@ -281,13 +281,15 @@ class Game{
 
     //==================6번 : DB 다루기 =================
     fun DB(){
-        DBtest().JDBC_TEST(money)
+        //DBtest().JDBC_TEST(money)
 
         // 테이블 구상
         // 플레이어 | 가진돈 | 수익 | 지출 | 무료충전횟수 | 플레이회차(로또회차) | 구매게임수 | 1등당첨횟수 | 2등당첨횟수 | 3등당첨횟수 | 4등당첨횟수 | 5등당첨횟수 | 꽝
         // 이런 데이터들은 상시로 기록하고.
         // 데이터 조회할때 쓰는 함수를 이 DB() 함수로 쓰던지 해야겠는데?
         //일단 이러한 DB는 플레이어의 게임 활동을 추적하기에 적합한 테이블 구조라고 볼 수 있다.
+
+        DBtest().viewTable(connection)
     }
 
     //================================================
@@ -324,6 +326,20 @@ class Game{
 
         println("Data inserted successfully.")
     }
+    //OR
+    private fun updateMoney(connection: Connection, money: Int) {
+
+        val updateQuery = "UPDATE Player SET money = ? WHERE player_id = ?"
+
+        // PreparedStatement 사용하여 SQL 쿼리 실행
+        val preparedStatement: PreparedStatement = connection.prepareStatement(updateQuery)
+        preparedStatement.setInt(1, money)
+        preparedStatement.setInt(2, 0)
+        // 쿼리 실행
+        preparedStatement.executeUpdate()
+
+        preparedStatement.close()
+    }
 
     private fun increaseRank(connection: Connection, rank: Int){
 
@@ -351,7 +367,7 @@ class Game{
         // 결과 출력
         while(resultSet.next()){
             money = resultSet.getInt("money")
-            println("Money: $money")
+            //println("Money: $money")
         }
 
         resultSet.close()
