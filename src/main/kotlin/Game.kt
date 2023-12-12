@@ -162,7 +162,8 @@ class Game{
                 }
                 if(num*1000 <= money){
                     money -= num*1000
-                    insertMoney(connection, money)
+                    //insertMoney(connection, money)
+                    updateMoney(connection, money, 1)
                     println("${num}장 출력됩니다.")
                     when(choose){
                         1 -> {
@@ -238,29 +239,34 @@ class Game{
                 val prizeMoney =1952160000
                 println("\t\t\t\t1등\t+${prizeMoney}")
                 money += prizeMoney
-                insertMoney(connection, money)
+                //insertMoney(connection, money)
+                updateMoney(connection, money, 1)
             } else if(count == 5){
                 if(bonus in list){
                     val prizeMoney = 54226666
                     println("\t\t\t\t2등\t+${prizeMoney}")
                     money += prizeMoney
-                    insertMoney(connection, money)
+                    //insertMoney(connection, money)
+                    updateMoney(connection, money, 1)
                 } else {
                     val prizeMoney = 1427017
                     println("\t\t\t\t3등\t+${prizeMoney}")
                     money += prizeMoney
-                    insertMoney(connection, money)
+                    //insertMoney(connection, money)
+                    updateMoney(connection, money, 1)
                 }
             } else if(count == 4){
                 val prizeMoney = 50000
                 println("\t\t\t\t4등\t+${prizeMoney}")
                 money += prizeMoney
-                insertMoney(connection, money)
+                //insertMoney(connection, money)
+                updateMoney(connection, money, 1)
             } else if(count == 3){
                 val prizeMoney = 5000
                 println("\t\t\t\t5등\t+${prizeMoney}")
                 money += prizeMoney
-                insertMoney(connection, money)
+                //insertMoney(connection, money)
+                updateMoney(connection, money, 1)
             } else {
                 println("\t\t\t\t꽝")
             }
@@ -308,7 +314,8 @@ class Game{
     private fun macro(){
         if(money >= 10000){
             money -= 10000
-            insertMoney(connection, money)
+            //insertMoney(connection, money)
+            updateMoney(connection, money, 1)
             for(i in 1..10){
                 sheet.add(Lotto().AutoLotto())
             }
@@ -332,6 +339,7 @@ class Game{
 
         println("Data inserted successfully.")
     } //이거는 새로운 플레이어가 추가되면서 돈이 붙음 => 추가될때마다 각 로그가 남는식으로 확인이 되긴하지만 자꾸 늘어나서 불편
+    // 그래서 insertMoney 보단 updateMoney 쓰는걸 추천
     //OR
     private fun updateMoney(connection: Connection, money: Int, playerId: Int) {
 
@@ -363,10 +371,14 @@ class Game{
 
 
     private fun queryMoney(connection: Connection): Int {
-        val selectQuery = "SELECT money FROM Player"
+        val playerId = 1
+
+        val selectQuery = "SELECT money FROM Player WHERE player_id = ?"
 
         // PreparedStatement 사용하여 SQL 쿼리 실행
         val preparedStatement: PreparedStatement = connection.prepareStatement(selectQuery)
+        preparedStatement.setInt(1, playerId)
+
         val resultSet : ResultSet = preparedStatement.executeQuery()
 
         var money = 0
