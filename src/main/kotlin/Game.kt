@@ -273,7 +273,7 @@ class Game{
         val charge = 10000
         money += charge
         //insertMoney(connection, money)
-        updateMoney(connection, money)
+        updateMoney(connection, money, 1)
         val temp = NumberFormat.getNumberInstance(Locale.US).format(charge)
 
         println("${temp}원 무료 충전")
@@ -327,14 +327,14 @@ class Game{
         println("Data inserted successfully.")
     }
     //OR
-    private fun updateMoney(connection: Connection, money: Int) {
+    private fun updateMoney(connection: Connection, money: Int, playerId: Int) {
 
         val updateQuery = "UPDATE Player SET money = ? WHERE player_id = ?"
 
         // PreparedStatement 사용하여 SQL 쿼리 실행
         val preparedStatement: PreparedStatement = connection.prepareStatement(updateQuery)
         preparedStatement.setInt(1, money)
-        preparedStatement.setInt(2, 0)
+        preparedStatement.setInt(2, playerId)
         // 쿼리 실행
         preparedStatement.executeUpdate()
 
