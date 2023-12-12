@@ -33,7 +33,7 @@ class Game{
 
             printMoney()
             println("================================================================================================")
-            println(" [1:보유중인Sheets확인\t2:로또구매\t3:당첨번호확인\t4:종료\t5:무료충전\t6:DB다루기\t7:무료자동10장]")
+            println(" [1:보유중인Sheets확인\t2:로또구매\t3:당첨번호확인\t4:종료\t5:무료충전\t6:DB다루기\t7:무료자동10장\t8:임시기능(현재 : 플레이어 하나빼고 삭제)]")
             println("================================================================================================")
             print("=> ")
             try {
@@ -66,6 +66,12 @@ class Game{
                     7 -> {
                         macro()
                     }
+
+                    //==========================
+                    8 -> {
+                        DBtest().onlyOnePlayer(connection)
+                    }
+                    //==========================
                 }
             } catch (e: NumberFormatException){
 
@@ -325,7 +331,7 @@ class Game{
         preparedStatement.executeUpdate()
 
         println("Data inserted successfully.")
-    }
+    } //이거는 새로운 플레이어가 추가되면서 돈이 붙음 => 추가될때마다 각 로그가 남는식으로 확인이 되긴하지만 자꾸 늘어나서 불편
     //OR
     private fun updateMoney(connection: Connection, money: Int, playerId: Int) {
 
@@ -339,7 +345,7 @@ class Game{
         preparedStatement.executeUpdate()
 
         preparedStatement.close()
-    }
+    } // 얘는 업데이트 되는 방식
 
     private fun increaseRank(connection: Connection, rank: Int){
 

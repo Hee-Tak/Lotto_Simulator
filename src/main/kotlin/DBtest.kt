@@ -37,6 +37,10 @@ class DBtest{
         queryPlayerData(connection)
     }
 
+    fun onlyOnePlayer(connection: Connection){
+        val playerIdToKeep = 1 // 유지하고 싶은 플레이어의 ID
+        deletePlayersExceptOne(connection, playerIdToKeep)
+    }
 
 
     private fun createPlayerTableIfNotExists(connection: Connection) {
@@ -133,5 +137,18 @@ class DBtest{
         preparedStatement.close()
     }
 
+
+    private fun deletePlayersExceptOne(connection: Connection, playerIdToKeep: Int) {
+        val deleteQuery = "DELETE FROM Player WHERE player_id <> ?"
+
+        // PreparedStatement 사용하여 SQL 쿼리 실행
+        val preparedStatement: PreparedStatement = connection.prepareStatement(deleteQuery)
+        preparedStatement.setInt(1, playerIdToKeep)
+
+        // 쿼리 실행
+        preparedStatement.executeUpdate()
+
+        preparedStatement.close()
+    }
 
 }
