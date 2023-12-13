@@ -126,7 +126,8 @@ class DBtest{
             println(
                 "Player ID: $playerId, Money: $money, Profit: $profit, Expenditure: $expenditure, " +
                         "Free Recharge Count: $freeRechargeCount, Play Round: $playRound, " +
-                        "Game Purchase Count: $gamePurchaseCount, First Prize Count: $firstPrizeCount, " +
+                        "Game Purchase Count: $gamePurchaseCount " + "\n" +
+                        "First Prize Count: $firstPrizeCount, " +
                         "Second Prize Count: $secondPrizeCount, Third Prize Count: $thirdPrizeCount, " +
                         "Fourth Prize Count: $fourthPrizeCount, Fifth Prize Count: $fifthPrizeCount, " +
                         "Losing Count: $losingCount"
