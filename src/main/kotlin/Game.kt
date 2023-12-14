@@ -247,6 +247,7 @@ class Game{
                 //insertMoney(connection, money)
                 DBtest().updateMoney(connection, money, 1)
                 DBtest().updatePlayerStats(connection, 1, 1)
+                DBtest().updateProfit(connection, prizeMoney, 1)
             } else if(count == 5){
                 if(bonus in list){
                     val prizeMoney = 54226666
@@ -255,6 +256,7 @@ class Game{
                     //insertMoney(connection, money)
                     DBtest().updateMoney(connection, money, 1)
                     DBtest().updatePlayerStats(connection, 1, 2)
+                    DBtest().updateProfit(connection, prizeMoney, 1)
                 } else {
                     val prizeMoney = 1427017
                     println("\t\t\t\t3등\t+${prizeMoney}")
@@ -262,6 +264,7 @@ class Game{
                     //insertMoney(connection, money)
                     DBtest().updateMoney(connection, money, 1)
                     DBtest().updatePlayerStats(connection, 1, 3)
+                    DBtest().updateProfit(connection, prizeMoney, 1)
                 }
             } else if(count == 4){
                 val prizeMoney = 50000
@@ -270,6 +273,7 @@ class Game{
                 //insertMoney(connection, money)
                 DBtest().updateMoney(connection, money, 1)
                 DBtest().updatePlayerStats(connection, 1, 4)
+                DBtest().updateProfit(connection, prizeMoney, 1)
             } else if(count == 3){
                 val prizeMoney = 5000
                 println("\t\t\t\t5등\t+${prizeMoney}")
@@ -277,6 +281,7 @@ class Game{
                 //insertMoney(connection, money)
                 DBtest().updateMoney(connection, money, 1)
                 DBtest().updatePlayerStats(connection, 1, 5)
+                DBtest().updateProfit(connection, prizeMoney, 1)
             } else {
                 println("\t\t\t\t꽝")
                 DBtest().updatePlayerStats(connection, 1, 6) //6이 아니더라도 1~5 숫자 제외 모두가능
@@ -297,6 +302,7 @@ class Game{
         money += charge
         //insertMoney(connection, money)
         DBtest().updateMoney(connection, money, 1)
+        DBtest().updateProfit(connection, charge, 1)
         val temp = NumberFormat.getNumberInstance(Locale.US).format(charge)
 
         println("${temp}원 무료 충전")

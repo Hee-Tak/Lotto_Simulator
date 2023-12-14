@@ -248,4 +248,68 @@ class DBtest{
 
         preparedStatement.close()
     } // 얘는 업데이트 되는 방식
+
+
+    fun updateProfit(connection: Connection, money: Int, playerId: Int) {
+        val updateQuery = "UPDATE Player SET profit = profit + ? WHERE player_id = ?"
+
+        // PreparedStatement 사용하여 SQL 쿼리 실행
+        val preparedStatement: PreparedStatement = connection.prepareStatement(updateQuery)
+        preparedStatement.setInt(1, money)
+        preparedStatement.setInt(2, playerId)
+        // 쿼리 실행
+        preparedStatement.executeUpdate()
+
+        preparedStatement.close()
+    }
+
+    fun updateExpenditure(connection: Connection, money: Int, playerId: Int){
+        val updateQuery = "UPDATE Player SET expenditure = expenditure - ? WHERE player_id = ?"
+
+        // PreparedStatement 사용하여 SQL 쿼리 실행
+        val preparedStatement: PreparedStatement = connection.prepareStatement(updateQuery)
+        preparedStatement.setInt(1, money)
+        preparedStatement.setInt(2, playerId)
+        // 쿼리 실행
+        preparedStatement.executeUpdate()
+
+        preparedStatement.close()
+    }
+
+    fun updateFreeRechargeCount(connection: Connection, playerId: Int){
+        val updateQuery = "UPDATE Player SET free_recharge_count = free_recharge_count + 1 WHERE player_id = ?"
+
+        // PreparedStatement 사용하여 SQL 쿼리 실행
+        val preparedStatement: PreparedStatement = connection.prepareStatement(updateQuery)
+        preparedStatement.setInt(1, playerId)
+        // 쿼리 실행
+        preparedStatement.executeUpdate()
+
+        preparedStatement.close()
+    }
+
+    fun updatePlayRound(connection: Connection){
+        val updateQuery = "UPDATE Player SET play_round = play_round + 1"
+
+        // PreparedStatement 사용하여 SQL 쿼리 실행
+        val preparedStatement: PreparedStatement = connection.prepareStatement(updateQuery)
+
+        // 쿼리 실행
+        preparedStatement.executeUpdate()
+
+        preparedStatement.close()
+    }
+
+    fun updateGamePurchaseCount(connection: Connection, playerId: Int){
+        val updateQuery = "UPDATE Player SET game_purchase_count = game_purchase_count + 1 WHERE player_id = ?"
+
+        // PreparedStatement 사용하여 SQL 쿼리 실행
+        val preparedStatement: PreparedStatement = connection.prepareStatement(updateQuery)
+        preparedStatement.setInt(1, playerId)
+
+        // 쿼리 실행
+        preparedStatement.executeUpdate()
+
+        preparedStatement.close()
+    }
 }
