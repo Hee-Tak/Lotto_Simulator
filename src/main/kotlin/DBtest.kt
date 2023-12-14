@@ -152,4 +152,29 @@ class DBtest{
         preparedStatement.close()
     }
 
+    fun initializePlayerData(connection: Connection){
+        val updateQuery = """
+            UPDATE Player 
+            SET 
+            money = 0, 
+            profit = 0, 
+            expenditure = 0, 
+            free_recharge_count = 0, 
+            play_round = 0, 
+            game_purchase_count = 0, 
+            first_prize_count = 0, 
+            second_prize_count = 0, 
+            third_prize_count = 0, 
+            fourth_prize_count = 0, 
+            fifth_prize_count = 0, 
+            losing_count = 0
+            """
+        val preparedStatement: PreparedStatement = connection.prepareStatement(updateQuery)
+        preparedStatement.executeUpdate()
+        preparedStatement.close()
+
+        println("플레이어 데이터 초기화")
+
+    }
+
 }
