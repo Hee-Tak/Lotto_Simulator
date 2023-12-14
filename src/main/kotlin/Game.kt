@@ -33,7 +33,7 @@ class Game{
 
             printMoney()
             println("================================================================================================")
-            println(" [1:보유중인Sheets확인\t2:로또구매\t3:당첨번호확인\t4:종료\t5:무료충전\t6:DB다루기\t7:무료자동10장\t8:임시기능(현재 : 플레이어 하나빼고 삭제)\t9:임시기능:DB초기화]")
+            println(" [1:보유중인Sheets확인\t2:로또구매\t3:당첨번호확인\t4:종료\t5:무료충전\t6:DB보기\t7:무료자동10장\t8:임시기능(현재 : 플레이어 하나빼고 삭제)\t9:임시기능:DB초기화]")
             println("================================================================================================")
             print("=> ")
             try {
@@ -296,7 +296,7 @@ class Game{
         val charge = 10000
         money += charge
         //insertMoney(connection, money)
-        updateMoney(connection, money, 1)
+        DBtest().updateMoney(connection, money, 1)
         val temp = NumberFormat.getNumberInstance(Locale.US).format(charge)
 
         println("${temp}원 무료 충전")
@@ -335,12 +335,6 @@ class Game{
             println("잔액 부족")
         }
     }
-
-
-
-
-
-
 
 
 }
