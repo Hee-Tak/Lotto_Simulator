@@ -169,6 +169,7 @@ class Game{
                     money -= num*1000
                     //insertMoney(connection, money)
                     DBtest().updateMoney(connection, money, 1)
+                    DBtest().updateExpenditure(connection, num*1000, 1)
                     println("${num}장 출력됩니다.")
                     when(choose){
                         1 -> {
@@ -176,6 +177,8 @@ class Game{
                                 user = lotto.AutoLotto()
                                 sheet.add(user)
                                 lotto.printLotto(user)
+
+                                DBtest().updateGamePurchaseCount(connection, 1)
                             }
                             break
                         }
@@ -184,6 +187,8 @@ class Game{
                                 user = lotto.ManualLotto()
                                 sheet.add(user)
                                 lotto.printLotto(user)
+
+                                DBtest().updateGamePurchaseCount(connection, 1)
                             }
                             break
                         }
@@ -192,6 +197,8 @@ class Game{
                                 user = lotto.HalfAuto()
                                 sheet.add(user)
                                 lotto.printLotto(user)
+
+                                DBtest().updateGamePurchaseCount(connection, 1)
                             }
                             break
                         }
@@ -220,6 +227,8 @@ class Game{
 
         println("\t\t<결과>")
         checkLotto(sheet, result)
+
+        DBtest().updatePlayRound(connection)
 
         sheet.clear()   //이번회차 확인했으니 비우고 다음회차로.
     }
@@ -306,6 +315,7 @@ class Game{
         val temp = NumberFormat.getNumberInstance(Locale.US).format(charge)
 
         println("${temp}원 무료 충전")
+        DBtest().updateFreeRechargeCount(connection, 1)
     }
 
     //==================6번 : DB 다루기 =================
@@ -333,6 +343,7 @@ class Game{
             money -= 10000
             //insertMoney(connection, money)
             DBtest().updateMoney(connection, money, 1)
+            DBtest().updateExpenditure(connection, 10000, 1)
             for(i in 1..10){
                 sheet.add(Lotto().AutoLotto())
             }
