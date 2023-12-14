@@ -381,6 +381,8 @@ class Game{
         preparedStatement.close()
     }
 
+
+
     private fun increaseGame(connection: Connection){
 
     }
