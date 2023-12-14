@@ -27,7 +27,7 @@ class Game{
         connection = DriverManager.getConnection(jdbcURL, user, password)
         DBtest().Table(connection)
 
-        money = queryMoney(connection)
+        money = DBtest().queryMoney(connection)
 
         while(true) {
 
@@ -168,7 +168,7 @@ class Game{
                 if(num*1000 <= money){
                     money -= num*1000
                     //insertMoney(connection, money)
-                    updateMoney(connection, money, 1)
+                    DBtest().updateMoney(connection, money, 1)
                     println("${num}장 출력됩니다.")
                     when(choose){
                         1 -> {
@@ -245,41 +245,41 @@ class Game{
                 println("\t\t\t\t1등\t+${prizeMoney}")
                 money += prizeMoney
                 //insertMoney(connection, money)
-                updateMoney(connection, money, 1)
-                updatePlayerStats(connection, 1, 1)
+                DBtest().updateMoney(connection, money, 1)
+                DBtest().updatePlayerStats(connection, 1, 1)
             } else if(count == 5){
                 if(bonus in list){
                     val prizeMoney = 54226666
                     println("\t\t\t\t2등\t+${prizeMoney}")
                     money += prizeMoney
                     //insertMoney(connection, money)
-                    updateMoney(connection, money, 1)
-                    updatePlayerStats(connection, 1, 2)
+                    DBtest().updateMoney(connection, money, 1)
+                    DBtest().updatePlayerStats(connection, 1, 2)
                 } else {
                     val prizeMoney = 1427017
                     println("\t\t\t\t3등\t+${prizeMoney}")
                     money += prizeMoney
                     //insertMoney(connection, money)
-                    updateMoney(connection, money, 1)
-                    updatePlayerStats(connection, 1, 3)
+                    DBtest().updateMoney(connection, money, 1)
+                    DBtest().updatePlayerStats(connection, 1, 3)
                 }
             } else if(count == 4){
                 val prizeMoney = 50000
                 println("\t\t\t\t4등\t+${prizeMoney}")
                 money += prizeMoney
                 //insertMoney(connection, money)
-                updateMoney(connection, money, 1)
-                updatePlayerStats(connection, 1, 4)
+                DBtest().updateMoney(connection, money, 1)
+                DBtest().updatePlayerStats(connection, 1, 4)
             } else if(count == 3){
                 val prizeMoney = 5000
                 println("\t\t\t\t5등\t+${prizeMoney}")
                 money += prizeMoney
                 //insertMoney(connection, money)
-                updateMoney(connection, money, 1)
-                updatePlayerStats(connection, 1, 5)
+                DBtest().updateMoney(connection, money, 1)
+                DBtest().updatePlayerStats(connection, 1, 5)
             } else {
                 println("\t\t\t\t꽝")
-                updatePlayerStats(connection, 1, 6) //6이 아니더라도 1~5 숫자 제외 모두가능
+                DBtest().updatePlayerStats(connection, 1, 6) //6이 아니더라도 1~5 숫자 제외 모두가능
             }
 
         }
@@ -326,7 +326,7 @@ class Game{
         if(money >= 10000){
             money -= 10000
             //insertMoney(connection, money)
-            updateMoney(connection, money, 1)
+            DBtest().updateMoney(connection, money, 1)
             for(i in 1..10){
                 sheet.add(Lotto().AutoLotto())
             }
@@ -340,88 +340,9 @@ class Game{
 
 
 
-    private fun insertMoney(connection: Connection, money: Int) {
-        val insertQuery = "INSERT INTO Player (money) VALUES (?)"
-
-        //PreparedStatement 사용하여 SQL 쿼리 실행
-        val preparedStatement: PreparedStatement = connection.prepareStatement(insertQuery)
-        preparedStatement.setInt(1, money)
-        preparedStatement.executeUpdate()
-
-        println("Data inserted successfully.")
-    } //이거는 새로운 플레이어가 추가되면서 돈이 붙음 => 추가될때마다 각 로그가 남는식으로 확인이 되긴하지만 자꾸 늘어나서 불편
-    // 그래서 insertMoney 보단 updateMoney 쓰는걸 추천
-    //OR
-    private fun updateMoney(connection: Connection, money: Int, playerId: Int) {
-
-        val updateQuery = "UPDATE Player SET money = ? WHERE player_id = ?"
-
-        // PreparedStatement 사용하여 SQL 쿼리 실행
-        val preparedStatement: PreparedStatement = connection.prepareStatement(updateQuery)
-        preparedStatement.setInt(1, money)
-        preparedStatement.setInt(2, playerId)
-        // 쿼리 실행
-        preparedStatement.executeUpdate()
-
-        preparedStatement.close()
-    } // 얘는 업데이트 되는 방식
-
-    private fun updatePlayerStats(connection: Connection,playerId: Int, rank: Int){
-        val updateQuery = when (rank) {
-            1 -> "UPDATE Player SET first_prize_count = first_prize_count + 1 WHERE player_id = ?"
-            2 -> "UPDATE Player SET second_prize_count = second_prize_count + 1 WHERE player_id = ?"
-            3 -> "UPDATE Player SET third_prize_count = third_prize_count + 1 WHERE player_id = ?"
-            4 -> "UPDATE Player SET fourth_prize_count = fourth_prize_count + 1 WHERE player_id = ?"
-            5 -> "UPDATE Player SET fifth_prize_count = fifth_prize_count + 1 WHERE player_id = ?"
-            else -> "UPDATE Player SET losing_count = losing_count + 1 WHERE player_id = ?"
-        }
-
-        // PreparedStatement 사용하여 SQL 쿼리 실행
-        val preparedStatement: PreparedStatement = connection.prepareStatement(updateQuery)
-        preparedStatement.setInt(1, playerId)
-
-        // 쿼리 실행
-        preparedStatement.executeUpdate()
-
-        preparedStatement.close()
-    }
 
 
 
-    private fun increaseGame(connection: Connection){
-
-    }
-
-    private fun increaseWeek(connection: Connection){
-
-    }
-
-
-
-
-    private fun queryMoney(connection: Connection): Int {
-        val playerId = 1
-
-        val selectQuery = "SELECT money FROM Player WHERE player_id = ?"
-
-        // PreparedStatement 사용하여 SQL 쿼리 실행
-        val preparedStatement: PreparedStatement = connection.prepareStatement(selectQuery)
-        preparedStatement.setInt(1, playerId)
-
-        val resultSet : ResultSet = preparedStatement.executeQuery()
-
-        var money = 0
-        // 결과 출력
-        while(resultSet.next()){
-            money = resultSet.getInt("money")
-            //println("Money: $money")
-        }
-
-        resultSet.close()
-        preparedStatement.close()
-
-        return money
-    }
 }
 
 

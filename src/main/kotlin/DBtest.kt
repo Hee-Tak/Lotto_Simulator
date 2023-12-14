@@ -177,4 +177,75 @@ class DBtest{
 
     }
 
+    fun queryMoney(connection: Connection): Int {
+        val playerId = 1
+
+        val selectQuery = "SELECT money FROM Player WHERE player_id = ?"
+
+        // PreparedStatement 사용하여 SQL 쿼리 실행
+        val preparedStatement: PreparedStatement = connection.prepareStatement(selectQuery)
+        preparedStatement.setInt(1, playerId)
+
+        val resultSet : ResultSet = preparedStatement.executeQuery()
+
+        var money = 0
+        // 결과 출력
+        while(resultSet.next()){
+            money = resultSet.getInt("money")
+            //println("Money: $money")
+        }
+
+        resultSet.close()
+        preparedStatement.close()
+
+        return money
+    }
+
+    fun updatePlayerStats(connection: Connection,playerId: Int, rank: Int){
+        val updateQuery = when (rank) {
+            1 -> "UPDATE Player SET first_prize_count = first_prize_count + 1 WHERE player_id = ?"
+            2 -> "UPDATE Player SET second_prize_count = second_prize_count + 1 WHERE player_id = ?"
+            3 -> "UPDATE Player SET third_prize_count = third_prize_count + 1 WHERE player_id = ?"
+            4 -> "UPDATE Player SET fourth_prize_count = fourth_prize_count + 1 WHERE player_id = ?"
+            5 -> "UPDATE Player SET fifth_prize_count = fifth_prize_count + 1 WHERE player_id = ?"
+            else -> "UPDATE Player SET losing_count = losing_count + 1 WHERE player_id = ?"
+        }
+
+        // PreparedStatement 사용하여 SQL 쿼리 실행
+        val preparedStatement: PreparedStatement = connection.prepareStatement(updateQuery)
+        preparedStatement.setInt(1, playerId)
+
+        // 쿼리 실행
+        preparedStatement.executeUpdate()
+
+        preparedStatement.close()
+    }
+
+
+
+    fun insertMoney(connection: Connection, money: Int) {
+        val insertQuery = "INSERT INTO Player (money) VALUES (?)"
+
+        //PreparedStatement 사용하여 SQL 쿼리 실행
+        val preparedStatement: PreparedStatement = connection.prepareStatement(insertQuery)
+        preparedStatement.setInt(1, money)
+        preparedStatement.executeUpdate()
+
+        println("Data inserted successfully.")
+    } //이거는 새로운 플레이어가 추가되면서 돈이 붙음 => 추가될때마다 각 로그가 남는식으로 확인이 되긴하지만 자꾸 늘어나서 불편
+    // 그래서 insertMoney 보단 updateMoney 쓰는걸 추천
+    //OR
+    fun updateMoney(connection: Connection, money: Int, playerId: Int) {
+
+        val updateQuery = "UPDATE Player SET money = ? WHERE player_id = ?"
+
+        // PreparedStatement 사용하여 SQL 쿼리 실행
+        val preparedStatement: PreparedStatement = connection.prepareStatement(updateQuery)
+        preparedStatement.setInt(1, money)
+        preparedStatement.setInt(2, playerId)
+        // 쿼리 실행
+        preparedStatement.executeUpdate()
+
+        preparedStatement.close()
+    } // 얘는 업데이트 되는 방식
 }
