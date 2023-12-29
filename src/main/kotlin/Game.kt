@@ -358,7 +358,13 @@ class Game{
     }
 
     private fun donation(){
+        if(money > 0){
+            val donate = money
+            money -= donate
+            DBtest().updateMoney(connection, money, 1)
+            DBtest().updateExpenditure(connection, donate, 1)
 
+        }
     }
 
 
