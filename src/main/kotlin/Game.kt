@@ -363,7 +363,9 @@ class Game{
             money -= donate
             DBtest().updateMoney(connection, money, 1)
             DBtest().updateExpenditure(connection, donate, 1)
-
+            println("${donate}원 전액 기부")
+        } else {
+            println("잔액 없음")
         }
     }
 
